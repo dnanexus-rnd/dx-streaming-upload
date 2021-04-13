@@ -27,6 +27,7 @@ CONFIG_DEFAULT = {
     "exclude": "",
     "min_age": 1000,
     "min_size": 1024,
+    "max_size": 10000,
     "min_interval": 1800,
     "n_retries": 3,
     "run_length": "24h",
@@ -72,7 +73,7 @@ def parse_args():
                         help='DNAnexus project ID to upload to',
                         required=True)
 
-    requiredNamed.add_argument('--directory', '-d',
+    requiredNamed.add_argument('--directory', '-d', 
                         help='Local directory to monitor for new RUN folder(s)',
                         required=True)
 
@@ -343,6 +344,7 @@ def _trigger_streaming_upload(folder, config):
                "-L", config['log_dir'],
                "-m", config['min_age'],
                "-z", config['min_size'],
+               "-M", config['max_size'],
                "-i", config['min_interval'],
                "-R", config['n_retries'],
                "-D", config['run_length'],
